@@ -1,0 +1,318 @@
+block/UART:
+  description: UART register block, DW_apb_uart
+  items:
+    - name: RBR
+      description: Receiver buffer register. when LCR[7] bit = 0
+      byte_offset: 0
+      access: Read
+      fieldset: RBR
+    - name: THR
+      description: Transmitter holding register. when LCR[7] bit = 0
+      byte_offset: 0
+      access: Write
+      fieldset: THR
+    - name: DLL
+      description: Divisor latch low. when LCR[7] bit = 1
+      byte_offset: 0
+      fieldset: DLL
+    - name: DLH
+      description: Divisor latch high. when LCR[7] bit = 1
+      byte_offset: 4
+      fieldset: DLH
+    - name: IER
+      description: Interrupt enable register. when LCR[7] bit = 0
+      byte_offset: 4
+      fieldset: IER
+    - name: IIR
+      description: Interrupt identification register.
+      byte_offset: 8
+      access: Read
+      fieldset: IIR
+    - name: FCR
+      description: FIFO control register. not available in 16450
+      byte_offset: 8
+      fieldset: FCR
+    - name: LCR
+      description: Line control register.
+      byte_offset: 12
+      fieldset: LCR
+    - name: MCR
+      description: Modem control register.
+      byte_offset: 16
+      fieldset: MCR
+    - name: LSR
+      description: Line status register.
+      byte_offset: 20
+      fieldset: LSR
+    - name: MSR
+      description: Modem status register.
+      byte_offset: 24
+      fieldset: MSR
+    - name: SCR
+      description: Scratch register.
+      byte_offset: 28
+      fieldset: SCR
+fieldset/RBR:
+  description: Receiver buffer register
+  fields:
+    - name: RBR
+      description: Data
+      bit_offset: 0
+      bit_size: 8
+fieldset/THR:
+  description: Transmitter holding register
+  fields:
+    - name: THR
+      description: Data
+      bit_offset: 0
+      bit_size: 8
+fieldset/DLL:
+  description: Divisor latch low
+  fields:
+    - name: DLL
+      description: Data
+      bit_offset: 0
+      bit_size: 8
+fieldset/DLH:
+  description: Divisor latch high
+  fields:
+    - name: DLH
+      description: Data
+      bit_offset: 0
+      bit_size: 8
+fieldset/IER:
+  description: Interrupt enable register
+  fields:
+    - name: ERBFI
+      description: Enable received data available interrupt
+      bit_offset: 0
+      bit_size: 1
+    - name: ETBEI
+      description: Enable transmitter holding register empty interrupt
+      bit_offset: 1
+      bit_size: 1
+    - name: ELSI
+      description: Enable receiver line status interrupt
+      bit_offset: 2
+      bit_size: 1
+    - name: EDSSI
+      description: Enable modem status interrupt
+      bit_offset: 3
+      bit_size: 1
+fieldset/IIR:
+  description: Interrupt Identity register
+  fields:
+    - name: INTPEND
+      description: Interrupt pending
+      bit_offset: 0
+      bit_size: 1
+    - name: INTID2
+      description: Interrupt identification
+      bit_offset: 1
+      bit_size: 3
+    - name: FIFOEN
+      description: FIFOs enabled
+      bit_offset: 6
+      bit_size: 2
+fieldset/FCR:
+  description: FIFO control register
+  fields:
+    - name: FIFOEN
+      description: FIFO enable
+      bit_offset: 0
+      bit_size: 1
+    - name: RFIFOR
+      description: RCVR FIFO reset
+      bit_offset: 1
+      bit_size: 1
+    - name: XFIFOR
+      description: XMIT FIFO reset
+      bit_offset: 2
+      bit_size: 1
+    - name: DMAM
+      description: DMA mode
+      bit_offset: 3
+      bit_size: 1
+    - name: TET
+      description: TX Empty Trigger
+      bit_offset: 4
+      bit_size: 2
+    - name: RT
+      description: RCVR Trigger
+      bit_offset: 6
+      bit_size: 2
+fieldset/LCR:
+  description: Line control register
+  fields:
+    - name: WLS
+      description: Data length select, aka. CLS, DLS
+      bit_offset: 0
+      bit_size: 2
+      enum: DATA_BITS
+    - name: STOP
+      description: Number of stop bits
+      bit_offset: 2
+      bit_size: 1
+      enum: STOP_BITS
+    - name: PEN
+      description: Parity enable
+      bit_offset: 3
+      bit_size: 1
+    - name: EPS
+      description: Even parity select
+      bit_offset: 4
+      bit_size: 1
+      enum: PARITY_SELECT
+    - name: SP
+      description: Stick parity (reserved in 16550, read as 0)
+      bit_offset: 5
+      bit_size: 1
+    - name: BC
+      description: Break control
+      bit_offset: 6
+      bit_size: 1
+    - name: DLAB
+      description: Divisor latch access bit
+      bit_offset: 7
+      bit_size: 1
+fieldset/MCR:
+  description: Modem control register
+  fields:
+    - name: DTR
+      description: Data terminal ready
+      bit_offset: 0
+      bit_size: 1
+    - name: RTS
+      description: Request to send
+      bit_offset: 1
+      bit_size: 1
+    - name: OUT1
+      description: Output 1
+      bit_offset: 2
+      bit_size: 1
+    - name: OUT2
+      description: Output 2
+      bit_offset: 3
+      bit_size: 1
+    - name: LB
+      description: Loopback mode, aka. LOOP
+      bit_offset: 4
+      bit_size: 1
+    - name: AFCE
+      description: Auto flow control enable
+      bit_offset: 5
+      bit_size: 1
+    - name: SIRE
+      description: SIR mode enable
+      bit_offset: 6
+      bit_size: 1
+fieldset/LSR:
+  description: Line status register
+  fields:
+    - name: DR
+      description: Data ready
+      bit_offset: 0
+      bit_size: 1
+    - name: OE
+      description: Overrun error
+      bit_offset: 1
+      bit_size: 1
+    - name: PE
+      description: Parity error
+      bit_offset: 2
+      bit_size: 1
+    - name: FE
+      description: Framing error
+      bit_offset: 3
+      bit_size: 1
+    - name: BI
+      description: Break interrupt
+      bit_offset: 4
+      bit_size: 1
+    - name: THRE
+      description: Transmitter holding register empty
+      bit_offset: 5
+      bit_size: 1
+    - name: TEMT
+      description: Transmitter empty
+      bit_offset: 6
+      bit_size: 1
+    - name: RFE
+      description: Receiver FIFO error
+      bit_offset: 7
+      bit_size: 1
+fieldset/MSR:
+  description: Modem status register
+  fields:
+    - name: DCTS
+      description: Delta clear to send
+      bit_offset: 0
+      bit_size: 1
+    - name: DDSR
+      description: Delta data set ready
+      bit_offset: 1
+      bit_size: 1
+    - name: TERI
+      description: Trailing edge ring indicator
+      bit_offset: 2
+      bit_size: 1
+    - name: DDCD
+      description: Delta data carrier detect
+      bit_offset: 3
+      bit_size: 1
+    - name: CTS
+      description: Clear to send
+      bit_offset: 4
+      bit_size: 1
+    - name: DSR
+      description: Data set ready
+      bit_offset: 5
+      bit_size: 1
+    - name: RI
+      description: Ring indicator
+      bit_offset: 6
+      bit_size: 1
+    - name: DCD
+      description: Data carrier detect
+      bit_offset: 7
+      bit_size: 1
+fieldset/SCR:
+  description: Scratch register
+  fields:
+    - name: SCR
+      description: Data
+      bit_offset: 0
+      bit_size: 8
+enum/DATA_BITS:
+  bit_size: 2
+  variants:
+    - name: Bit5
+      description: 5 bits
+      value: 0b00
+    - name: Bit6
+      description: 6 bits
+      value: 0b01
+    - name: Bit7
+      description: 7 bits
+      value: 0b10
+    - name: Bit8
+      description: 8 bits
+      value: 0b11
+enum/STOP_BITS:
+  bit_size: 1
+  variants:
+    - name: Stop1
+      description: 1 stop bit
+      value: 0
+    - name: Stop2
+      description: 2 stop bits (1.5 when 5 bits)
+      value: 1
+enum/PARITY_SELECT:
+  bit_size: 1
+  variants:
+    - name: Odd
+      description: Odd parity (one)
+      value: 0
+    - name: Even
+      description: Even parity (zero)
+      value: 1
