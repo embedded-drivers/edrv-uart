@@ -1,6 +1,15 @@
 [package]
 name = "edrv-uart"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
+authors = ["BH1XUW <bh1xuw@gmail.com>"]
+repository = "https://github.com/embedded-drivers/edrv-uart"
+documentation = "https://docs.rs/edrv-uart"
+homepage = "https://github.com/embedded-drivers/edrv-uart"
+categories = []
+description = "UART driver for embedded devices, managed by embedded-drivers team"
+keywords = []
+readme = "README.md"
+license = "MIT/Apache-2.0"
 
 [dependencies]
